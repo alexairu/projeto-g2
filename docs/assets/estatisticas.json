@@ -1,0 +1,325 @@
+{
+  "descritiva": {
+    "barulho": {
+      "count": 12.0,
+      "mean": 32.8,
+      "std": 7.71,
+      "min": 20.66,
+      "25%": 27.04,
+      "50%": 30.9,
+      "75%": 38.85,
+      "max": 44.2,
+      "cv": 0.24,
+      "amplitude": 23.54
+    },
+    "casa_escura": {
+      "count": 12.0,
+      "mean": 19.58,
+      "std": 6.68,
+      "min": 5.29,
+      "25%": 17.71,
+      "50%": 20.56,
+      "75%": 23.09,
+      "max": 29.31,
+      "cv": 0.34,
+      "amplitude": 24.02
+    },
+    "goteira": {
+      "count": 12.0,
+      "mean": 30.0,
+      "std": 15.06,
+      "min": 3.62,
+      "25%": 21.58,
+      "50%": 23.67,
+      "75%": 41.41,
+      "max": 54.91,
+      "cv": 0.5,
+      "amplitude": 51.29
+    },
+    "madeira_deteriorada": {
+      "count": 12.0,
+      "mean": 27.94,
+      "std": 13.79,
+      "min": 9.3,
+      "25%": 18.47,
+      "50%": 26.18,
+      "75%": 35.41,
+      "max": 56.81,
+      "cv": 0.49,
+      "amplitude": 47.51
+    },
+    "poluicao": {
+      "count": 12.0,
+      "mean": 24.94,
+      "std": 8.14,
+      "min": 12.76,
+      "25%": 19.52,
+      "50%": 23.87,
+      "75%": 31.88,
+      "max": 38.11,
+      "cv": 0.33,
+      "amplitude": 25.35
+    },
+    "pouco_espaco": {
+      "count": 12.0,
+      "mean": 43.6,
+      "std": 6.6,
+      "min": 32.09,
+      "25%": 37.68,
+      "50%": 45.74,
+      "75%": 48.93,
+      "max": 51.63,
+      "cv": 0.15,
+      "amplitude": 19.54
+    },
+    "umidade": {
+      "count": 12.0,
+      "mean": 31.05,
+      "std": 12.74,
+      "min": 8.62,
+      "25%": 23.35,
+      "50%": 32.38,
+      "75%": 38.81,
+      "max": 50.7,
+      "cv": 0.41,
+      "amplitude": 42.08
+    },
+    "violencia": {
+      "count": 12.0,
+      "mean": 45.28,
+      "std": 9.34,
+      "min": 24.14,
+      "25%": 41.62,
+      "50%": 44.6,
+      "75%": 49.4,
+      "max": 61.08,
+      "cv": 0.21,
+      "amplitude": 36.94
+    }
+  },
+  "indice_capital": {
+    "Belém": 46.6,
+    "Fortaleza": 39.06,
+    "Recife": 37.86,
+    "Manaus": 35.87,
+    "Salvador": 34.17,
+    "Porto Alegre": 32.97,
+    "Belo Horizonte": 32.5,
+    "São Paulo": 32.18,
+    "Goiânia": 27.26,
+    "Rio de Janeiro": 25.43,
+    "Curitiba": 23.25,
+    "Brasília": 15.65
+  },
+  "indice_estrutural": {
+    "Belém": 54.14,
+    "Fortaleza": 43.93,
+    "Manaus": 40.38,
+    "Salvador": 36.56,
+    "Recife": 36.26,
+    "Porto Alegre": 30.09,
+    "Goiânia": 26.46,
+    "São Paulo": 23.46,
+    "Belo Horizonte": 23.14,
+    "Rio de Janeiro": 17.96,
+    "Curitiba": 16.38,
+    "Brasília": 7.18
+  },
+  "indice_regiao": {
+    "Norte": 41.24,
+    "Nordeste": 37.03,
+    "Sudeste": 30.04,
+    "Sul": 28.11,
+    "Centro-Oeste": 21.45
+  },
+  "media_norte_nordeste": 38.71,
+  "media_demais": 27.03,
+  "pearson": {
+    "barulho": {
+      "barulho": 1.0,
+      "casa_escura": 0.18,
+      "goteira": 0.36,
+      "madeira_deteriorada": 0.5,
+      "poluicao": 0.53,
+      "pouco_espaco": 0.46,
+      "umidade": 0.38,
+      "violencia": 0.67
+    },
+    "casa_escura": {
+      "barulho": 0.18,
+      "casa_escura": 1.0,
+      "goteira": 0.74,
+      "madeira_deteriorada": 0.69,
+      "poluicao": 0.42,
+      "pouco_espaco": 0.63,
+      "umidade": 0.82,
+      "violencia": 0.52
+    },
+    "goteira": {
+      "barulho": 0.36,
+      "casa_escura": 0.74,
+      "goteira": 1.0,
+      "madeira_deteriorada": 0.88,
+      "poluicao": 0.42,
+      "pouco_espaco": 0.74,
+      "umidade": 0.81,
+      "violencia": 0.57
+    },
+    "madeira_deteriorada": {
+      "barulho": 0.5,
+      "casa_escura": 0.69,
+      "goteira": 0.88,
+      "madeira_deteriorada": 1.0,
+      "poluicao": 0.34,
+      "pouco_espaco": 0.69,
+      "umidade": 0.89,
+      "violencia": 0.61
+    },
+    "poluicao": {
+      "barulho": 0.53,
+      "casa_escura": 0.42,
+      "goteira": 0.42,
+      "madeira_deteriorada": 0.34,
+      "poluicao": 1.0,
+      "pouco_espaco": 0.43,
+      "umidade": 0.32,
+      "violencia": 0.73
+    },
+    "pouco_espaco": {
+      "barulho": 0.46,
+      "casa_escura": 0.63,
+      "goteira": 0.74,
+      "madeira_deteriorada": 0.69,
+      "poluicao": 0.43,
+      "pouco_espaco": 1.0,
+      "umidade": 0.65,
+      "violencia": 0.33
+    },
+    "umidade": {
+      "barulho": 0.38,
+      "casa_escura": 0.82,
+      "goteira": 0.81,
+      "madeira_deteriorada": 0.89,
+      "poluicao": 0.32,
+      "pouco_espaco": 0.65,
+      "umidade": 1.0,
+      "violencia": 0.61
+    },
+    "violencia": {
+      "barulho": 0.67,
+      "casa_escura": 0.52,
+      "goteira": 0.57,
+      "madeira_deteriorada": 0.61,
+      "poluicao": 0.73,
+      "pouco_espaco": 0.33,
+      "umidade": 0.61,
+      "violencia": 1.0
+    }
+  },
+  "spearman": {
+    "barulho": {
+      "barulho": 1.0,
+      "casa_escura": 0.14,
+      "goteira": 0.5,
+      "madeira_deteriorada": 0.55,
+      "poluicao": 0.58,
+      "pouco_espaco": 0.59,
+      "umidade": 0.45,
+      "violencia": 0.69
+    },
+    "casa_escura": {
+      "barulho": 0.14,
+      "casa_escura": 1.0,
+      "goteira": 0.74,
+      "madeira_deteriorada": 0.78,
+      "poluicao": 0.36,
+      "pouco_espaco": 0.45,
+      "umidade": 0.77,
+      "violencia": 0.35
+    },
+    "goteira": {
+      "barulho": 0.5,
+      "casa_escura": 0.74,
+      "goteira": 1.0,
+      "madeira_deteriorada": 0.83,
+      "poluicao": 0.45,
+      "pouco_espaco": 0.77,
+      "umidade": 0.82,
+      "violencia": 0.44
+    },
+    "madeira_deteriorada": {
+      "barulho": 0.55,
+      "casa_escura": 0.78,
+      "goteira": 0.83,
+      "madeira_deteriorada": 1.0,
+      "poluicao": 0.39,
+      "pouco_espaco": 0.7,
+      "umidade": 0.85,
+      "violencia": 0.47
+    },
+    "poluicao": {
+      "barulho": 0.58,
+      "casa_escura": 0.36,
+      "goteira": 0.45,
+      "madeira_deteriorada": 0.39,
+      "poluicao": 1.0,
+      "pouco_espaco": 0.47,
+      "umidade": 0.32,
+      "violencia": 0.83
+    },
+    "pouco_espaco": {
+      "barulho": 0.59,
+      "casa_escura": 0.45,
+      "goteira": 0.77,
+      "madeira_deteriorada": 0.7,
+      "poluicao": 0.47,
+      "pouco_espaco": 1.0,
+      "umidade": 0.71,
+      "violencia": 0.28
+    },
+    "umidade": {
+      "barulho": 0.45,
+      "casa_escura": 0.77,
+      "goteira": 0.82,
+      "madeira_deteriorada": 0.85,
+      "poluicao": 0.32,
+      "pouco_espaco": 0.71,
+      "umidade": 1.0,
+      "violencia": 0.45
+    },
+    "violencia": {
+      "barulho": 0.69,
+      "casa_escura": 0.35,
+      "goteira": 0.44,
+      "madeira_deteriorada": 0.47,
+      "poluicao": 0.83,
+      "pouco_espaco": 0.28,
+      "umidade": 0.45,
+      "violencia": 1.0
+    }
+  },
+  "spearman_goteira_madeira": {
+    "rho": 0.83,
+    "p": 0.00095
+  },
+  "outliers_z>=1.8": [
+    [
+      "Belém",
+      "madeira_deteriorada",
+      56.81,
+      2.09
+    ],
+    [
+      "Brasília",
+      "casa_escura",
+      5.29,
+      -2.14
+    ],
+    [
+      "Brasília",
+      "violencia",
+      24.14,
+      -2.26
+    ]
+  ]
+}

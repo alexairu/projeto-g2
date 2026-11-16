@@ -1,0 +1,19 @@
+# Dependências congeladas (pip freeze) do ambiente em que o pipeline foi validado.
+# Python 3.12. Recriar: python -m venv .venv && pip install -r requirements.txt
+contourpy==1.4.0
+cycler==0.12.1
+et_xmlfile==2.0.0
+fonttools==4.67.0
+kiwisolver==1.5.1
+matplotlib==3.11.2
+numpy==2.5.3
+openpyxl==3.1.5
+packaging==26.3
+pandas==3.0.5
+pillow==12.3.0
+pyparsing==3.3.3
+python-dateutil==2.9.0.post0
+scipy==1.18.1
+seaborn==0.13.2
+six==1.17.0
+xlrd==2.0.1
