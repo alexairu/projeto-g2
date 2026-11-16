@@ -1,5 +1,10 @@
 """ETL da Tabela 1461 (IBGE/POF 2002-2003, via Armazém de Dados da Prefeitura do Rio).
 
+Autor: Alexandre Souza de Abreu Junior
+Centro Universitário La Salle do Rio de Janeiro · Bacharelado em Sistemas de Informação
+Disciplina: Linguagens de Programação (6º período, 2026.2) · Prof. Alexandre Neves Louzada
+Licença: MIT
+
 Transforma a planilha "larga" e com cabeçalho em duas linhas (problema + Sim/Não)
 em um formato tidy (uma linha por capital x problema), valida e persiste.
 

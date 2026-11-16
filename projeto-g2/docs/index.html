@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problemas no domicílio nas 12 maiores capitais brasileiras: análise exploratória da POF 2002-2003</title>
+<meta name="description" content="Análise exploratória da Tabela 1461 da POF 2002-2003 (IBGE): problemas no domicílio nas 12 maiores capitais.">
+<meta name="keywords" content="condições de moradia, POF 2002-2003, capitais brasileiras, análise exploratória de dados, ciência aberta">
+<meta name="author" content="Alexandre Souza de Abreu Junior">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--page:#f3f4f6;--card:#fff;--fg:#1f2937;--muted:#4b5563;--line:#e5e7eb;--title:#1e3a8a;--accent:#3b82f6;--soft:#f8fafc;--code:#f6f8fa}
+  @media (prefers-color-scheme: dark){:root{--page:#0b1120;--card:#111827;--fg:#e5e7eb;--muted:#9ca3af;--line:#1f2937;--title:#93c5fd;--accent:#60a5fa;--soft:#0f172a;--code:#0f172a}}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--page);color:var(--fg);font:17px/1.7 "Source Sans 3","Segoe UI",system-ui,sans-serif}
+  .paper{max-width:900px;margin:32px auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:40px 48px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  h1{color:var(--title);font-size:clamp(1.55rem,3.6vw,2.05rem);line-height:1.3;font-weight:700;margin:0 0 18px}
+  .authors{font-weight:600;margin:0 0 14px}
+  .affil{font-style:italic;color:var(--muted);margin:0}
+  .gh-btn{display:inline-flex;align-items:center;gap:8px;margin:24px 0 8px;padding:9px 16px;border:1px solid var(--line);border-radius:6px;color:var(--title);font-weight:600;font-size:.95rem;text-decoration:none;background:var(--card)}
+  .gh-btn:hover{border-color:var(--accent)}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0;font-size:.78rem;font-weight:600}
+  .badge{padding:2px 9px;border-radius:999px;background:var(--soft);border:1px solid var(--line);color:var(--muted)}
+  hr.sep{border:0;border-top:1px solid var(--line);margin:28px 0 36px}
+  .abstract{border-left:4px solid var(--accent);padding:6px 0 6px 28px;margin:0 0 40px}
+  .abstract h2,.toc h2{color:var(--title);font-size:1.05rem;letter-spacing:.04em;margin:0 0 8px;border:0;padding:0}
+  .abstract h2{text-transform:uppercase}
+  .abstract p{text-align:justify;margin:0 0 14px}
+  .kw{color:var(--muted);font-size:.95rem}
+  .kw strong{color:var(--fg)}
+  nav.toc{border:1px solid var(--line);border-radius:8px;padding:22px 30px;margin:0 0 20px}
+  nav.toc ol{margin:0;padding-left:1.3em}
+  nav.toc li{margin:4px 0;font-size:1.05rem}
+  nav.toc a{color:var(--muted);text-decoration:none}
+  nav.toc a:hover{color:var(--title);text-decoration:underline}
+  h2{color:var(--title);font-size:1.45rem;line-height:1.3;margin:2.2em 0 .6em;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+  h3{color:var(--title);font-size:1.12rem;margin:1.6em 0 .4em}
+  section p{text-align:justify}
+  a{color:var(--title)}
+  figure{margin:1.8em 0}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px;background:#fff}
+  figcaption{font-size:.9rem;line-height:1.45;color:var(--muted);margin-top:.5em}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:6px;padding:12px 14px;overflow-x:auto;font:.84rem/1.5 ui-monospace,Menlo,Consolas,monospace}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em}
+  .rq{background:var(--soft);border-left:3px solid var(--accent);border-radius:4px;padding:8px 16px;margin:.6em 0}
+  #interativo{width:100%;height:480px}
+  .ctrl{font-size:.95rem;margin:.5em 0}
+  select{font:inherit;padding:4px 8px;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:4px;max-width:100%}
+  .meta{font-size:.9rem;color:var(--muted)}
+  ol.refs{padding-left:1.2em;font-size:.95rem}
+  ol.refs li{margin-bottom:.4em;text-align:left}
+  footer{border-top:1px solid var(--line);margin-top:3em;padding-top:18px;font-size:.85rem;color:var(--muted)}
+  @media (max-width:640px){body{font-size:16px}.paper{margin:0;border-radius:0;border-left:0;border-right:0;padding:24px 16px}.abstract{padding-left:16px}nav.toc{padding:16px 18px}#interativo{height:420px}section p,.abstract p{text-align:left}}
+  .tablewrap{overflow-x:auto;margin:1.4em 0}
+  table{border-collapse:collapse;width:100%;font-size:.92rem}
+  caption{caption-side:bottom;text-align:left;font-size:.88rem;color:var(--muted);padding-top:.5em;line-height:1.45}
+  th,td{border-bottom:1px solid var(--line);padding:6px 10px;text-align:left;white-space:nowrap}
+  th{background:var(--soft);color:var(--title)}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<article class="paper">
+<header>
+  <h1>Problemas no domicílio nas 12 maiores capitais brasileiras: análise exploratória da POF 2002-2003</h1>
+  <p class="authors">Alexandre Souza de Abreu Junior</p>
+  <p class="affil">Bacharelado em Sistemas de Informação — Centro Universitário La Salle do Rio de Janeiro</p>
+  <p class="affil">Disciplina: Linguagens de Programação – Análise e Visualização de Dados com Python (6º Período) · 2026.2</p>
+  <p class="affil">Professor: Prof. Alexandre Neves Louzada</p>
+  <a class="gh-btn" href="https://github.com/alexairu/projeto-g2">📦 Ver Repositório GitHub (Código e Dados)</a>
+  <div class="badges">
+    <span class="badge">Python 3.12+</span>
+    <span class="badge">Código: MIT</span>
+    <span class="badge">Dados/texto: CC BY 4.0</span>
+    <span class="badge">FAIR</span>
+  </div>
+</header>
+<hr class="sep">
+<section class="abstract" id="resumo">
+  <h2>Resumo</h2>
+  <p>Este trabalho analisa a Tabela 1461 da Pesquisa de Orçamentos Familiares 2002-2003 (IBGE), que informa o percentual de famílias que relataram oito problemas no domicílio em doze grandes capitais brasileiras. Construímos um pipeline em Python que converte a planilha original, com cabeçalho em duas linhas, em formato tidy validado e persistido em CSV comprimido, seguido de estatística descritiva, índices agregados e correlações. Os problemas mais frequentes foram violência ou vandalismo (média de 45,3%) e pouco espaço (43,6%), enquanto os problemas estruturais (goteira, umidade e madeira deteriorada) apresentaram a maior dispersão entre as capitais. Belém obteve o maior índice médio de incidência (46,6%) e Brasília o menor (15,7%); as capitais do Norte e do Nordeste tiveram média de 38,7%, contra 27,0% nas demais. Os três problemas estruturais se correlacionam fortemente (ρ de Spearman entre 0,82 e 0,85), o que sugere um padrão comum de precariedade construtiva. Por se tratar de dados agregados, autodeclarados e com apenas 12 unidades de análise, as conclusões são exploratórias. O repositório segue os princípios FAIR e permite reproduzir integralmente as análises.</p>
+  <p class="kw"><strong>Palavras-chave:</strong> condições de moradia; POF 2002-2003; capitais brasileiras; análise exploratória de dados; ciência aberta.</p>
+</section>
+<nav class="toc" aria-label="Sumário">
+  <h2>Sumário</h2>
+  <ol>
+    <li><a href="#intro">Introdução</a></li>
+    <li><a href="#metodo">Metodologia e Pipeline de Dados</a></li>
+    <li><a href="#resultados">Resultados e Discussão</a></li>
+    <li><a href="#conclusao">Conclusão</a></li>
+    <li><a href="#fair">Disponibilidade dos Dados e Declaração FAIR</a></li>
+    <li><a href="#refs">Referências</a></li>
+  </ol>
+</nav>
+
+<section id="intro">
+  <h2>1 Introdução</h2>
+  <p>As condições físicas e ambientais do domicílio afetam saúde, segurança e qualidade de vida. Telhados com goteira e paredes úmidas, por exemplo, favorecem mofo e doenças respiratórias; barulho e violência no entorno afetam o bem-estar e o uso do espaço urbano. A POF investiga, além do orçamento das famílias, a percepção de problemas na moradia, o que permite comparar a precariedade habitacional entre cidades. Embora os dados tenham mais de vinte anos, eles formam um retrato de referência que pode servir como linha de base e como exercício reprodutível de análise de dados abertos.</p>
+  <p>Este estudo busca responder às seguintes perguntas de pesquisa:</p>
+  <div class="rq"><strong>RQ1.</strong> Quais problemas no domicílio são mais frequentes nas 12 maiores capitais e quanto eles variam entre as cidades?</div>
+  <div class="rq"><strong>RQ2.</strong> Quais capitais (e regiões) concentram a maior incidência de problemas?</div>
+  <div class="rq"><strong>RQ3.</strong> Os problemas ocorrem de forma associada, isto é, as capitais que sofrem com um tipo de problema tendem a sofrer com outros?</div>
+</section>
+
+<section id="metodo">
+  <h2>2 Metodologia e Pipeline de Dados</h2>
+  <h3>2.1 Fonte e granularidade</h3>
+  <p>A fonte primária é a Tabela 1461 da POF 2002-2003 (IBGE), adaptada pelo Instituto Municipal de Urbanismo Pereira Passos (IPP) em fevereiro de 2005 e disponibilizada no Armazém de Dados da Prefeitura do Rio de Janeiro (data.rio). A informação é agregada: para cada uma das 12 capitais, o percentual de famílias que responderam "sim" ou "não" a cada um de 8 problemas. Cada família foi representada por um único informante. A tabela não traz microdados, tamanhos de amostra nem intervalos de confiança.</p>
+  <h3>2.2 Tratamento dos dados</h3>
+  <ul>
+    <li><strong>Parsing não trivial:</strong> o arquivo <code>.xls</code> (Excel 97-2003, página de código 1252) tem título, cabeçalho em duas linhas (problema na linha superior, Sim/Não na inferior, com células mescladas) e notas de rodapé duplicadas. A leitura usa <code>header=None</code> e localiza as linhas-âncora pelo conteúdo, e não por posição fixa, o que torna o código robusto a linhas em branco extras.</li>
+    <li><strong>Reestruturação:</strong> o formato largo é convertido em tidy (uma linha por capital × problema), com colunas <code>pct_sim</code> e <code>pct_nao</code>.</li>
+    <li><strong>Valores ausentes:</strong> nenhum foi encontrado; mesmo assim, a validação interrompe o pipeline se surgirem, em vez de imputar valores silenciosamente.</li>
+    <li><strong>Tipos:</strong> percentuais convertidos para <code>float64</code> com <code>pd.to_numeric(errors="coerce")</code>; rótulos longos mapeados para identificadores <em>snake_case</em>.</li>
+    <li><strong>Métricas derivadas:</strong> região da capital (macrorregião IBGE), ranking por problema, <em>índice médio de incidência</em> (média simples dos 8 percentuais), <em>índice estrutural</em> (média de goteira, umidade e madeira deteriorada), coeficiente de variação (CV) e z-score.</li>
+    <li><strong>Rastreabilidade:</strong> o arquivo bruto nunca é modificado; toda saída é gerada por <code>src/etl.py</code> em <code>data/processed/</code>.</li>
+  </ul>
+  <h3>2.3 Trechos do pipeline</h3>
+<pre><code># Localiza o bloco de dados pelo conteúdo, e não pela posição
+row_prob = raw.index[raw.eq("Pouco espaço").any(axis=1)][0]
+row_sn   = raw.index[(raw.index &gt; row_prob) &amp; raw.eq("Sim").any(axis=1)][0]
+problemas = raw.loc[row_prob].ffill()   # propaga o nome do problema para a coluna "Não"
+
+# Pivot Sim/Não -&gt; colunas pct_sim / pct_nao
+tidy = (longo.pivot_table(index=["capital", "problema_original"],
+                          columns="resposta", values="percentual", aggfunc="first")
+             .rename(columns={"Sim": "pct_sim", "Não": "pct_nao"}).reset_index())</code></pre>
+<pre><code># Regras de qualidade (falham de forma explícita)
+if df["capital"].nunique() != 12: erros.append("esperadas 12 capitais")
+if df[["pct_sim", "pct_nao"]].isna().any().any(): erros.append("há valores ausentes")
+if not np.allclose(df["pct_sim"] + df["pct_nao"], 100, atol=0.05):
+    erros.append("Sim + Não difere de 100%")
+if erros: raise ValueError("Validação falhou: " + "; ".join(erros))</code></pre>
+  <p>Como as respostas são binárias, <code>pct_nao = 100 − pct_sim</code> em todas as 96 linhas, e as análises usam apenas <code>pct_sim</code>. A correlação principal é a de Spearman, mais adequada a amostras pequenas e a distribuições não necessariamente normais; o coeficiente de Pearson é indicado quando usado.</p>
+</section>
+
+<section id="resultados">
+  <h2>3 Resultados e Discussão</h2>
+
+  <h3>3.1 RQ1 — Quais problemas são mais frequentes?</h3>
+  <p>Violência ou vandalismo na área de residência (média de 45,3%) e pouco espaço (43,6%) foram os problemas mais relatados, seguidos de barulho (32,8%), umidade (31,1%) e goteira (30,0%). Casa escura foi o menos frequente (19,6%).</p>
+  <figure>
+    <img src="assets/fig1_prevalencia.png" alt="Gráfico de amplitude: para cada problema, linha do menor ao maior valor entre as capitais, pontos coloridos por região e marcador da média" loading="lazy">
+    <figcaption><strong>Figura 1.</strong> Amplitude de cada problema entre as 12 capitais: a faixa cinza vai do menor ao maior valor (capitais extremas indicadas nas pontas), cada ponto é uma capital colorida por região e o traço preto marca a média. Fonte: IBGE/POF 2002-2003; elaboração própria.</figcaption>
+  </figure>
+  <div class="tablewrap">
+  <table>
+    <caption><strong>Tabela 1.</strong> Estatística descritiva do % de famílias que relataram cada problema (n = 12 capitais). DP = desvio-padrão amostral; CV = DP ÷ média. Fonte: IBGE/POF 2002-2003; elaboração própria.</caption>
+    <thead><tr><th>Problema</th><th class="n">Média</th><th class="n">DP</th><th class="n">CV</th><th class="n">Mín.</th><th class="n">Máx.</th><th class="n">Amplitude</th></tr></thead>
+    <tbody>
+      <tr><td>Violência/vandalismo</td><td class="n">45,28</td><td class="n">9,34</td><td class="n">0,21</td><td class="n">24,14</td><td class="n">61,08</td><td class="n">36,94</td></tr>
+      <tr><td>Pouco espaço</td><td class="n">43,60</td><td class="n">6,60</td><td class="n">0,15</td><td class="n">32,09</td><td class="n">51,63</td><td class="n">19,54</td></tr>
+      <tr><td>Barulho (rua/vizinhos)</td><td class="n">32,80</td><td class="n">7,71</td><td class="n">0,24</td><td class="n">20,66</td><td class="n">44,20</td><td class="n">23,54</td></tr>
+      <tr><td>Umidade (fundação/paredes/chão)</td><td class="n">31,05</td><td class="n">12,74</td><td class="n">0,41</td><td class="n">8,62</td><td class="n">50,70</td><td class="n">42,08</td></tr>
+      <tr><td>Telhado com goteira</td><td class="n">30,00</td><td class="n">15,06</td><td class="n">0,50</td><td class="n">3,62</td><td class="n">54,91</td><td class="n">51,29</td></tr>
+      <tr><td>Madeira deteriorada</td><td class="n">27,94</td><td class="n">13,79</td><td class="n">0,49</td><td class="n">9,30</td><td class="n">56,81</td><td class="n">47,51</td></tr>
+      <tr><td>Poluição/problemas ambientais</td><td class="n">24,94</td><td class="n">8,14</td><td class="n">0,33</td><td class="n">12,76</td><td class="n">38,11</td><td class="n">25,35</td></tr>
+      <tr><td>Casa escura</td><td class="n">19,58</td><td class="n">6,68</td><td class="n">0,34</td><td class="n">5,29</td><td class="n">29,31</td><td class="n">24,02</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>A dispersão difere muito entre os problemas. Pouco espaço (CV = 0,15) e violência (CV = 0,21) são relatados em níveis parecidos em quase todas as capitais, o que sugere problemas de natureza mais generalizada nas grandes cidades. Já goteira (CV = 0,50), madeira deteriorada (0,49) e umidade (0,41) variam muito: a goteira vai de 3,6% em Brasília a 54,9% em Belém, e a madeira deteriorada de 9,3% (Brasília) a 56,8% (Belém). Esses problemas dependem de qualidade construtiva, materiais e clima, fatores que mudam de uma cidade para outra.</p>
+
+  <h3>3.2 RQ2 — Quais capitais concentram mais problemas?</h3>
+  <figure>
+    <img src="assets/fig2_ranking_capitais.png" alt="Barras horizontais com o índice médio de incidência por capital, coloridas por região" loading="lazy">
+    <figcaption><strong>Figura 2.</strong> Índice médio de incidência (média simples dos 8 percentuais) por capital. Fonte: IBGE/POF 2002-2003; elaboração própria.</figcaption>
+  </figure>
+  <p>Belém lidera com índice de 46,6%, seguida de Fortaleza (39,1%), Recife (37,9%), Manaus (35,9%) e Salvador (34,2%): as cinco capitais do Norte e do Nordeste ocupam as cinco primeiras posições. Brasília (15,7%), Curitiba (23,3%) e Rio de Janeiro (25,4%) têm os menores índices. Por região, a média dos índices é de 41,2% no Norte, 37,0% no Nordeste, 30,0% no Sudeste, 28,1% no Sul e 21,5% no Centro-Oeste. Reunindo Norte e Nordeste, a média é de 38,7%, contra 27,0% nas demais regiões.</p>
+  <p>Considerando só o índice estrutural, a distância aumenta: Belém tem 54,1% e Brasília 7,2%, cerca de 7,5 vezes menos. Uma hipótese plausível, <em>não testada aqui</em>, é que o planejamento e a idade do parque habitacional de Brasília, junto com o clima mais seco, reduzam goteiras e umidade, enquanto em Belém o clima quente e muito chuvoso, somado a uma proporção maior de moradias precárias, favoreça esses problemas. Para verificá-la seriam necessários dados de renda, material de construção e pluviosidade.</p>
+  <figure>
+    <img src="assets/fig3_heatmap.png" alt="Mapa de calor do percentual de famílias com cada problema, por capital" loading="lazy">
+    <figcaption><strong>Figura 3.</strong> Percentual de famílias com cada problema, por capital (capitais e problemas ordenados pela média). Fonte: IBGE/POF 2002-2003; elaboração própria.</figcaption>
+  </figure>
+
+  <p><strong>Explore os dados.</strong> Escolha um problema para ver as capitais ordenadas; passe o mouse (ou toque) nas barras para ver os detalhes.</p>
+  <div class="ctrl"><label for="sel">Problema: </label><select id="sel"></select></div>
+  <div id="interativo" role="img" aria-label="Gráfico de barras interativo com o percentual de famílias por capital para o problema selecionado"></div>
+  <p class="meta"><strong>Figura 4.</strong> Gráfico interativo (Plotly.js); as cores indicam a região. Fonte: IBGE/POF 2002-2003; elaboração própria.</p>
+
+  <p>Há três valores extremos (|z| ≥ 1,8 em relação à média do problema): Belém em madeira deteriorada (56,8%, z = 2,09) e Brasília em casa escura (5,3%, z = −2,14) e em violência (24,1%, z = −2,26). Os dois valores de Brasília estão no mesmo sentido, o que reforça seu perfil singular no conjunto.</p>
+
+  <h3>3.3 RQ3 — Os problemas se associam?</h3>
+  <figure>
+    <img src="assets/fig4_correlacao.png" alt="Matriz triangular de correlações de Spearman entre os oito problemas" loading="lazy">
+    <figcaption><strong>Figura 5.</strong> Correlação de Spearman entre os oito problemas (n = 12 capitais). Fonte: IBGE/POF 2002-2003; elaboração própria.</figcaption>
+  </figure>
+  <p>Os três problemas estruturais formam um bloco coeso: goteira × madeira deteriorada (ρ = 0,83; p &lt; 0,001), umidade × goteira (ρ = 0,82) e umidade × madeira deteriorada (ρ = 0,85). Ou seja, onde há mais telhados com goteira, há também mais umidade e madeira deteriorada, o que é coerente com um mecanismo comum de infiltração de água e deterioração dos materiais.</p>
+  <figure>
+    <img src="assets/fig5_dispersao_estrutural.png" alt="Dispersão entre o percentual de goteira e o de madeira deteriorada por capital" loading="lazy">
+    <figcaption><strong>Figura 6.</strong> Goteira × madeira deteriorada por capital, com reta de tendência linear. Fonte: IBGE/POF 2002-2003; elaboração própria.</figcaption>
+  </figure>
+  <p>Em um segundo grupo, de natureza urbana, violência se associa a poluição (Pearson r = 0,73) e a barulho (r = 0,67), o que pode refletir o grau de adensamento e de intensidade de uso do espaço urbano. A relação entre pouco espaço e violência é fraca (r = 0,33), embora pouco espaço se associe a goteira (r = 0,74), possivelmente por atingir principalmente moradias precárias. Todas essas interpretações são hipóteses: com 12 unidades, os coeficientes são instáveis, e correlações entre agregados não valem necessariamente para as famílias (falácia ecológica).</p>
+</section>
+
+<section id="conclusao">
+  <h2>4 Conclusão</h2>
+  <p><strong>RQ1:</strong> violência e pouco espaço são os problemas mais comuns e relativamente homogêneos entre as capitais; goteira, madeira deteriorada e umidade variam muito mais. <strong>RQ2:</strong> Belém, Fortaleza, Recife, Manaus e Salvador concentram a maior incidência, e Brasília a menor; a diferença entre Norte/Nordeste e as demais regiões é de cerca de 12 pontos percentuais no índice médio. <strong>RQ3:</strong> os problemas estruturais se correlacionam fortemente entre si, indicando um padrão comum de precariedade construtiva, enquanto violência, poluição e barulho formam um segundo grupo ligado ao ambiente urbano.</p>
+  <h3>Limitações</h3>
+  <ul>
+    <li>Dados de 2002-2003, que não refletem a situação atual.</li>
+    <li>Informações autodeclaradas por um único membro da família, com respostas binárias e sem gradação de gravidade.</li>
+    <li>Tabela agregada, sem tamanho de amostra nem erro amostral: não é possível testar se as diferenças entre capitais são estatisticamente significativas.</li>
+    <li>Apenas 12 unidades de análise; o índice médio é uma média simples, sem pesos nem validação como medida composta.</li>
+    <li>Análise ecológica, que não permite inferir relações no nível da família.</li>
+  </ul>
+  <h3>Trabalhos futuros</h3>
+  <p>Cruzar a tabela com renda, tipo de material de construção e pluviosidade; usar os microdados da POF para estimar intervalos de confiança; e comparar com edições posteriores da pesquisa (2008-2009 e 2017-2018) para avaliar a evolução dos problemas.</p>
+</section>
+
+<section id="fair">
+  <h2>5 Disponibilidade dos Dados e Declaração FAIR</h2>
+  <p>Este projeto adere aos princípios FAIR (WILKINSON et al., 2016):</p>
+  <ul>
+    <li><strong>Findable:</strong> <code>README.md</code> com resumo, palavras-chave e link para a fonte original; autoria, disciplina, semestre e instituição identificados.</li>
+    <li><strong>Accessible:</strong> repositório público, sem credenciais proprietárias; artigo publicado via GitHub Pages, com layout responsivo.</li>
+    <li><strong>Interoperable:</strong> dados processados em <code>.csv.gz</code> (UTF-8); variáveis descritas em <code>data/data_dictionary.md</code>.</li>
+    <li><strong>Reusable:</strong> código sob licença MIT; dados derivados e texto sob CC BY 4.0; dependências fixadas em <code>requirements.txt</code>.</li>
+  </ul>
+  <p>Para reproduzir todo o pipeline:</p>
+<pre><code>git clone https://github.com/alexairu/projeto-g2.git
+cd projeto-g2
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python -m src.etl                # gera data/processed/*.csv.gz
+python -m src.analise            # gera docs/assets/*.png e estatisticas.json</code></pre>
+</section>
+
+<section id="refs">
+  <h2>6 Referências</h2>
+  <ol class="refs">
+    <li>HUNTER, J. D. Matplotlib: a 2D graphics environment. <strong>Computing in Science &amp; Engineering</strong>, v. 9, n. 3, p. 90-95, 2007.</li>
+    <li>INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA (IBGE). <strong>Pesquisa de Orçamentos Familiares 2002-2003</strong>. Rio de Janeiro: IBGE, Diretoria de Pesquisas, Coordenação de Índices de Preços, 2004.</li>
+    <li>PLOTLY TECHNOLOGIES INC. <strong>Plotly.js</strong>. Disponível em: https://plotly.com/javascript/. Acesso em: 16 nov. 2026.</li>
+    <li>PREFEITURA DA CIDADE DO RIO DE JANEIRO. Instituto Municipal de Urbanismo Pereira Passos (IPP). <strong>Tabela 1461 – Famílias, por existência de problemas no domicílio, segundo as 12 maiores capitais, 2002-2003 (%)</strong>. Armazém de Dados / data.rio, 2005. Disponível em: https://www.data.rio/documents/21e108c3f4574658bd06759c6602b9e3/about. Acesso em: 16 nov. 2026.</li>
+    <li>THE PANDAS DEVELOPMENT TEAM. <strong>pandas documentation</strong>. Disponível em: https://pandas.pydata.org/docs/. Acesso em: 16 nov. 2026.</li>
+    <li>VIRTANEN, P. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. <strong>Nature Methods</strong>, v. 17, p. 261-272, 2020.</li>
+    <li>WASKOM, M. L. seaborn: statistical data visualization. <strong>Journal of Open Source Software</strong>, v. 6, n. 60, 3021, 2021.</li>
+    <li>WILKINSON, M. D. et al. The FAIR Guiding Principles for scientific data management and stewardship. <strong>Scientific Data</strong>, v. 3, 160018, 2016.</li>
+  </ol>
+</section>
+<footer>
+  <div>
+    Alexandre Souza de Abreu Junior · Centro Universitário La Salle do Rio de Janeiro · Bacharelado em Sistemas de Informação · Linguagens de Programação · Prof. Alexandre Neves Louzada · 2026.2<br>
+    Código: licença MIT · Dados derivados e texto: CC BY 4.0
+  </div>
+</footer>
+</article>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script>
+const DADOS = [{"capital": "Belém", "regiao": "Norte", "problema": "barulho", "pct_sim": 44.2, "rank_capital_no_problema": 1}, {"capital": "Belo Horizonte", "regiao": "Sudeste", "problema": "barulho", "pct_sim": 43.99, "rank_capital_no_problema": 2}, {"capital": "Porto Alegre", "regiao": "Sul", "problema": "barulho", "pct_sim": 39.02, "rank_capital_no_problema": 3}, {"capital": "Salvador", "regiao": "Nordeste", "problema": "barulho", "pct_sim": 38.8, "rank_capital_no_problema": 4}, {"capital": "São Paulo", "regiao": "Sudeste", "problema": "barulho", "pct_sim": 37.44, "rank_capital_no_problema": 5}, {"capital": "Recife", "regiao": "Nordeste", "problema": "barulho", "pct_sim": 32.26, "rank_capital_no_problema": 6}, {"capital": "Manaus", "regiao": "Norte", "problema": "barulho", "pct_sim": 29.54, "rank_capital_no_problema": 7}, {"capital": "Fortaleza", "regiao": "Nordeste", "problema": "barulho", "pct_sim": 28.84, "rank_capital_no_problema": 8}, {"capital": "Curitiba", "regiao": "Sul", "problema": "barulho", "pct_sim": 27.19, "rank_capital_no_problema": 9}, {"capital": "Rio de Janeiro", "regiao": "Sudeste", "problema": "barulho", "pct_sim": 26.57, "rank_capital_no_problema": 10}, {"capital": "Brasília", "regiao": "Centro-Oeste", "problema": "barulho", "pct_sim": 25.14, "rank_capital_no_problema": 11}, {"capital": "Goiânia", "regiao": "Centro-Oeste", "problema": "barulho", "pct_sim": 20.66, "rank_capital_no_problema": 12}, {"capital": "Fortaleza", "regiao": "Nordeste", "problema": "casa_escura", "pct_sim": 29.31, "rank_capital_no_problema": 1}, {"capital": "Recife", "regiao": "Nordeste", "problema": "casa_escura", "pct_sim": 26.02, "rank_capital_no_problema": 2}, {"capital": "Manaus", "regiao": "Norte", "problema": "casa_escura", "pct_sim": 25.02, "rank_capital_no_problema": 3}, {"capital": "Goiânia", "regiao": "Centro-Oeste", "problema": "casa_escura", "pct_sim": 22.45, "rank_capital_no_problema": 4}, {"capital": "Porto Alegre", "regiao": "Sul", "problema": "casa_escura", "pct_sim": 21.29, "rank_capital_no_problema": 5}, {"capital": "Belém", "regiao": "Norte", "problema": "casa_escura", "pct_sim": 20.95, "rank_capital_no_problema": 6}, {"capital": "Salvador", "regiao": "Nordeste", "problema": "casa_escura", "pct_sim": 20.16, "rank_capital_no_problema": 7}, {"capital": "São Paulo", "regiao": "Sudeste", "problema": "casa_escura", "pct_sim": 19.92, "rank_capital_no_problema": 8}, {"capital": "Belo Horizonte", "regiao": "Sudeste", "problema": "casa_escura", "pct_sim": 17.98, "rank_capital_no_problema": 9}, {"capital": "Rio de Janeiro", "regiao": "Sudeste", "problema": "casa_escura", "pct_sim": 16.9, "rank_capital_no_problema": 10}, {"capital": "Curitiba", "regiao": "Sul", "problema": "casa_escura", "pct_sim": 9.72, "rank_capital_no_problema": 11}, {"capital": "Brasília", "regiao": "Centro-Oeste", "problema": "casa_escura", "pct_sim": 5.29, "rank_capital_no_problema": 12}, {"capital": "Belém", "regiao": "Norte", "problema": "goteira", "pct_sim": 54.91, "rank_capital_no_problema": 1}, {"capital": "Manaus", "regiao": "Norte", "problema": "goteira", "pct_sim": 51.8, "rank_capital_no_problema": 2}, {"capital": "Recife", "regiao": "Nordeste", "problema": "goteira", "pct_sim": 41.51, "rank_capital_no_problema": 3}, {"capital": "Fortaleza", "regiao": "Nordeste", "problema": "goteira", "pct_sim": 41.38, "rank_capital_no_problema": 4}, {"capital": "Salvador", "regiao": "Nordeste", "problema": "goteira", "pct_sim": 35.42, "rank_capital_no_problema": 5}, {"capital": "Belo Horizonte", "regiao": "Sudeste", "problema": "goteira", "pct_sim": 24.53, "rank_capital_no_problema": 6}, {"capital": "Goiânia", "regiao": "Centro-Oeste", "problema": "goteira", "pct_sim": 22.81, "rank_capital_no_problema": 7}, {"capital": "São Paulo", "regiao": "Sudeste", "problema": "goteira", "pct_sim": 22.39, "rank_capital_no_problema": 8}, {"capital": "Porto Alegre", "regiao": "Sul", "problema": "goteira", "pct_sim": 22.13, "rank_capital_no_problema": 9}, {"capital": "Rio de Janeiro", "regiao": "Sudeste", "problema": "goteira", "pct_sim": 19.93, "rank_capital_no_problema": 10}, {"capital": "Curitiba", "regiao": "Sul", "problema": "goteira", "pct_sim": 19.53, "rank_capital_no_problema": 11}, {"capital": "Brasília", "regiao": "Centro-Oeste", "problema": "goteira", "pct_sim": 3.62, "rank_capital_no_problema": 12}, {"capital": "Belém", "regiao": "Norte", "problema": "madeira_deteriorada", "pct_sim": 56.81, "rank_capital_no_problema": 1}, {"capital": "Fortaleza", "regiao": "Nordeste", "problema": "madeira_deteriorada", "pct_sim": 42.18, "rank_capital_no_problema": 2}, {"capital": "Manaus", "regiao": "Norte", "problema": "madeira_deteriorada", "pct_sim": 38.25, "rank_capital_no_problema": 3}, {"capital": "Porto Alegre", "regiao": "Sul", "problema": "madeira_deteriorada", "pct_sim": 34.46, "rank_capital_no_problema": 4}, {"capital": "Salvador", "regiao": "Nordeste", "problema": "madeira_deteriorada", "pct_sim": 33.25, "rank_capital_no_problema": 5}, {"capital": "Recife", "regiao": "Nordeste", "problema": "madeira_deteriorada", "pct_sim": 29.2, "rank_capital_no_problema": 6}, {"capital": "São Paulo", "regiao": "Sudeste", "problema": "madeira_deteriorada", "pct_sim": 23.16, "rank_capital_no_problema": 7}, {"capital": "Goiânia", "regiao": "Centro-Oeste", "problema": "madeira_deteriorada", "pct_sim": 21.06, "rank_capital_no_problema": 8}, {"capital": "Belo Horizonte", "regiao": "Sudeste", "problema": "madeira_deteriorada", "pct_sim": 19.6, "rank_capital_no_problema": 9}, {"capital": "Rio de Janeiro", "regiao": "Sudeste", "problema": "madeira_deteriorada", "pct_sim": 15.07, "rank_capital_no_problema": 10}, {"capital": "Curitiba", "regiao": "Sul", "problema": "madeira_deteriorada", "pct_sim": 12.93, "rank_capital_no_problema": 11}, {"capital": "Brasília", "regiao": "Centro-Oeste", "problema": "madeira_deteriorada", "pct_sim": 9.3, "rank_capital_no_problema": 12}, {"capital": "Recife", "regiao": "Nordeste", "problema": "poluicao", "pct_sim": 38.11, "rank_capital_no_problema": 1}, {"capital": "São Paulo", "regiao": "Sudeste", "problema": "poluicao", "pct_sim": 35.63, "rank_capital_no_problema": 2}, {"capital": "Belém", "regiao": "Norte", "problema": "poluicao", "pct_sim": 32.52, "rank_capital_no_problema": 3}, {"capital": "Belo Horizonte", "regiao": "Sudeste", "problema": "poluicao", "pct_sim": 31.66, "rank_capital_no_problema": 4}, {"capital": "Fortaleza", "regiao": "Nordeste", "problema": "poluicao", "pct_sim": 26.04, "rank_capital_no_problema": 5}, {"capital": "Porto Alegre", "regiao": "Sul", "problema": "poluicao", "pct_sim": 23.9, "rank_capital_no_problema": 6}, {"capital": "Curitiba", "regiao": "Sul", "problema": "poluicao", "pct_sim": 23.84, "rank_capital_no_problema": 7}, {"capital": "Manaus", "regiao": "Norte", "problema": "poluicao", "pct_sim": 22.3, "rank_capital_no_problema": 8}, {"capital": "Rio de Janeiro", "regiao": "Sudeste", "problema": "poluicao", "pct_sim": 20.36, "rank_capital_no_problema": 9}, {"capital": "Goiânia", "regiao": "Centro-Oeste", "problema": "poluicao", "pct_sim": 16.98, "rank_capital_no_problema": 10}, {"capital": "Salvador", "regiao": "Nordeste", "problema": "poluicao", "pct_sim": 15.2, "rank_capital_no_problema": 11}, {"capital": "Brasília", "regiao": "Centro-Oeste", "problema": "poluicao", "pct_sim": 12.76, "rank_capital_no_problema": 12}, {"capital": "Belém", "regiao": "Norte", "problema": "pouco_espaco", "pct_sim": 51.63, "rank_capital_no_problema": 1}, {"capital": "Salvador", "regiao": "Nordeste", "problema": "pouco_espaco", "pct_sim": 50.61, "rank_capital_no_problema": 2}, {"capital": "Recife", "regiao": "Nordeste", "problema": "pouco_espaco", "pct_sim": 48.94, "rank_capital_no_problema": 3}, {"capital": "São Paulo", "regiao": "Sudeste", "problema": "pouco_espaco", "pct_sim": 48.93, "rank_capital_no_problema": 4}, {"capital": "Fortaleza", "regiao": "Nordeste", "problema": "pouco_espaco", "pct_sim": 48.07, "rank_capital_no_problema": 5}, {"capital": "Manaus", "regiao": "Norte", "problema": "pouco_espaco", "pct_sim": 47.34, "rank_capital_no_problema": 6}, {"capital": "Rio de Janeiro", "regiao": "Sudeste", "problema": "pouco_espaco", "pct_sim": 44.15, "rank_capital_no_problema": 7}, {"capital": "Belo Horizonte", "regiao": "Sudeste", "problema": "pouco_espaco", "pct_sim": 40.48, "rank_capital_no_problema": 8}, {"capital": "Porto Alegre", "regiao": "Sul", "problema": "pouco_espaco", "pct_sim": 38.04, "rank_capital_no_problema": 9}, {"capital": "Goiânia", "regiao": "Centro-Oeste", "problema": "pouco_espaco", "pct_sim": 36.61, "rank_capital_no_problema": 10}, {"capital": "Brasília", "regiao": "Centro-Oeste", "problema": "pouco_espaco", "pct_sim": 36.34, "rank_capital_no_problema": 11}, {"capital": "Curitiba", "regiao": "Sul", "problema": "pouco_espaco", "pct_sim": 32.09, "rank_capital_no_problema": 12}, {"capital": "Belém", "regiao": "Norte", "problema": "umidade", "pct_sim": 50.7, "rank_capital_no_problema": 1}, {"capital": "Fortaleza", "regiao": "Nordeste", "problema": "umidade", "pct_sim": 48.23, "rank_capital_no_problema": 2}, {"capital": "Salvador", "regiao": "Nordeste", "problema": "umidade", "pct_sim": 41.02, "rank_capital_no_problema": 3}, {"capital": "Recife", "regiao": "Nordeste", "problema": "umidade", "pct_sim": 38.07, "rank_capital_no_problema": 4}, {"capital": "Goiânia", "regiao": "Centro-Oeste", "problema": "umidade", "pct_sim": 35.52, "rank_capital_no_problema": 5}, {"capital": "Porto Alegre", "regiao": "Sul", "problema": "umidade", "pct_sim": 33.68, "rank_capital_no_problema": 6}, {"capital": "Manaus", "regiao": "Norte", "problema": "umidade", "pct_sim": 31.09, "rank_capital_no_problema": 7}, {"capital": "Belo Horizonte", "regiao": "Sudeste", "problema": "umidade", "pct_sim": 25.29, "rank_capital_no_problema": 8}, {"capital": "São Paulo", "regiao": "Sudeste", "problema": "umidade", "pct_sim": 24.84, "rank_capital_no_problema": 9}, {"capital": "Rio de Janeiro", "regiao": "Sudeste", "problema": "umidade", "pct_sim": 18.89, "rank_capital_no_problema": 10}, {"capital": "Curitiba", "regiao": "Sul", "problema": "umidade", "pct_sim": 16.67, "rank_capital_no_problema": 11}, {"capital": "Brasília", "regiao": "Centro-Oeste", "problema": "umidade", "pct_sim": 8.62, "rank_capital_no_problema": 12}, {"capital": "Belém", "regiao": "Norte", "problema": "violencia", "pct_sim": 61.08, "rank_capital_no_problema": 1}, {"capital": "Belo Horizonte", "regiao": "Sudeste", "problema": "violencia", "pct_sim": 56.46, "rank_capital_no_problema": 2}, {"capital": "Porto Alegre", "regiao": "Sul", "problema": "violencia", "pct_sim": 51.21, "rank_capital_no_problema": 3}, {"capital": "Recife", "regiao": "Nordeste", "problema": "violencia", "pct_sim": 48.8, "rank_capital_no_problema": 4}, {"capital": "Fortaleza", "regiao": "Nordeste", "problema": "violencia", "pct_sim": 48.43, "rank_capital_no_problema": 5}, {"capital": "São Paulo", "regiao": "Sudeste", "problema": "violencia", "pct_sim": 45.16, "rank_capital_no_problema": 6}, {"capital": "Curitiba", "regiao": "Sul", "problema": "violencia", "pct_sim": 44.03, "rank_capital_no_problema": 7}, {"capital": "Goiânia", "regiao": "Centro-Oeste", "problema": "violencia", "pct_sim": 41.96, "rank_capital_no_problema": 8}, {"capital": "Manaus", "regiao": "Norte", "problema": "violencia", "pct_sim": 41.65, "rank_capital_no_problema": 9}, {"capital": "Rio de Janeiro", "regiao": "Sudeste", "problema": "violencia", "pct_sim": 41.54, "rank_capital_no_problema": 10}, {"capital": "Salvador", "regiao": "Nordeste", "problema": "violencia", "pct_sim": 38.93, "rank_capital_no_problema": 11}, {"capital": "Brasília", "regiao": "Centro-Oeste", "problema": "violencia", "pct_sim": 24.14, "rank_capital_no_problema": 12}];
+const ROTULOS = {violencia:"Violência/vandalismo",pouco_espaco:"Pouco espaço",barulho:"Barulho (rua/vizinhos)",umidade:"Umidade (fundação/paredes/chão)",goteira:"Telhado com goteira",madeira_deteriorada:"Madeira deteriorada",poluicao:"Poluição/problemas ambientais",casa_escura:"Casa escura"};
+const CORES = {"Norte":"#1b9e77","Nordeste":"#d95f02","Sudeste":"#7570b3","Sul":"#e7298a","Centro-Oeste":"#66a61e"};
+const sel = document.getElementById("sel");
+Object.keys(ROTULOS).forEach(k => { const o = document.createElement("option"); o.value = k; o.textContent = ROTULOS[k]; sel.appendChild(o); });
+
+function desenhar(prob){
+  if (typeof Plotly === "undefined") {
+    document.getElementById("interativo").textContent = "Não foi possível carregar o Plotly.js (verifique a conexão).";
+    return;
+  }
+  const linhas = DADOS.filter(d => d.problema === prob).sort((a,b) => a.pct_sim - b.pct_sim);
+  const traco = {
+    type: "bar", orientation: "h",
+    x: linhas.map(d => d.pct_sim), y: linhas.map(d => d.capital),
+    marker: {color: linhas.map(d => CORES[d.regiao])},
+    customdata: linhas.map(d => [d.regiao, d.rank_capital_no_problema]),
+    text: linhas.map(d => d.pct_sim.toFixed(1) + "%"), textposition: "outside", cliponaxis: false,
+    hovertemplate: "<b>%{y}</b> (%{customdata[0]})<br>%{x:.2f}% das famílias<br>Posição: %{customdata[1]}º de 12<extra></extra>"
+  };
+  const layout = {
+    title: {text: ROTULOS[prob] + " — % de famílias, por capital", font: {size: 14}},
+    xaxis: {title: {text: "% de famílias"}, range: [0, 75], gridcolor: "rgba(128,128,128,.25)"},
+    yaxis: {automargin: true},
+    margin: {l: 10, r: 20, t: 50, b: 50},
+    paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)",
+    font: {color: getComputedStyle(document.body).color, family: "system-ui, sans-serif"}
+  };
+  Plotly.react("interativo", [traco], layout, {responsive: true, displaylogo: false});
+}
+sel.addEventListener("change", e => desenhar(e.target.value));
+desenhar("violencia");
+</script>
+</body>
+</html>

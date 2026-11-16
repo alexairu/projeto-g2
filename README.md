@@ -1,6 +1,6 @@
-# Problemas no domicílio nas 12 maiores capitais brasileiras (POF 2002-2003)
+# Problemas no domicílio nas 12 maiores capitais brasileiras: análise exploratória da POF 2002-2003
 
-![Python](https://img.shields.io/badge/Python-3.12-blue) ![Código: MIT](https://img.shields.io/badge/c%C3%B3digo-MIT-green) ![Dados: CC BY 4.0](https://img.shields.io/badge/dados-CC%20BY%204.0-lightgrey) ![FAIR](https://img.shields.io/badge/FAIR-compliant-orange)
+![Python](https://img.shields.io/badge/Python-3.12%2B-blue) ![Código: MIT](https://img.shields.io/badge/c%C3%B3digo-MIT-green) ![Dados: CC BY 4.0](https://img.shields.io/badge/dados-CC%20BY%204.0-lightgrey) ![FAIR](https://img.shields.io/badge/FAIR-compliant-orange)
 
 **Autor:** Alexandre Souza de Abreu Junior
 **Instituição:** Centro Universitário La Salle do Rio de Janeiro · Bacharelado em Sistemas de Informação · 6º período
@@ -52,6 +52,8 @@ python -m src.analise            # gera docs/assets/
 ```
 Para abrir o artigo localmente, abra `docs/index.html` no navegador.
 
+Para executar o notebook: `pip install notebook` e depois `jupyter notebook notebooks/analise_exploratoria.ipynb` (a partir da raiz do repositório).
+
 ## Publicação no GitHub Pages
 *Settings → Pages → Build and deployment → Deploy from a branch → `main` / pasta `/docs`.*
 
@@ -61,4 +63,4 @@ Para abrir o artigo localmente, abra `docs/index.html` no navegador.
 - Dados brutos: termos originais do IBGE/IPP.
 
 ## Como citar
-ABREU JUNIOR, Alexandre Souza de. *Problemas no domicílio nas 12 maiores capitais brasileiras (POF 2002-2003)*. Rio de Janeiro: Centro Universitário La Salle do Rio de Janeiro, 2026. Disponível em: https://github.com/alexairu/projeto-g2.
+ABREU JUNIOR, Alexandre Souza de. *Problemas no domicílio nas 12 maiores capitais brasileiras: análise exploratória da POF 2002-2003*. Rio de Janeiro: Centro Universitário La Salle do Rio de Janeiro, 2026. Disponível em: https://github.com/alexairu/projeto-g2.

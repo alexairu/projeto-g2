@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Problemas no domicílio nas 12 maiores capitais brasileiras (POF 2002-2003)</title>
+<title>Problemas no domicílio nas 12 maiores capitais brasileiras: análise exploratória da POF 2002-2003</title>
 <meta name="description" content="Análise exploratória da Tabela 1461 da POF 2002-2003 (IBGE): problemas no domicílio nas 12 maiores capitais.">
 <meta name="keywords" content="condições de moradia, POF 2002-2003, capitais brasileiras, análise exploratória de dados, ciência aberta">
 <meta name="author" content="Alexandre Souza de Abreu Junior">
@@ -53,19 +53,25 @@
   ol.refs li{margin-bottom:.4em;text-align:left}
   footer{border-top:1px solid var(--line);margin-top:3em;padding-top:18px;font-size:.85rem;color:var(--muted)}
   @media (max-width:640px){body{font-size:16px}.paper{margin:0;border-radius:0;border-left:0;border-right:0;padding:24px 16px}.abstract{padding-left:16px}nav.toc{padding:16px 18px}#interativo{height:420px}section p,.abstract p{text-align:left}}
+  .tablewrap{overflow-x:auto;margin:1.4em 0}
+  table{border-collapse:collapse;width:100%;font-size:.92rem}
+  caption{caption-side:bottom;text-align:left;font-size:.88rem;color:var(--muted);padding-top:.5em;line-height:1.45}
+  th,td{border-bottom:1px solid var(--line);padding:6px 10px;text-align:left;white-space:nowrap}
+  th{background:var(--soft);color:var(--title)}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
 <article class="paper">
 <header>
-  <h1>Onde a moradia é mais precária? Problemas no domicílio nas 12 maiores capitais brasileiras (POF 2002-2003)</h1>
+  <h1>Problemas no domicílio nas 12 maiores capitais brasileiras: análise exploratória da POF 2002-2003</h1>
   <p class="authors">Alexandre Souza de Abreu Junior</p>
   <p class="affil">Bacharelado em Sistemas de Informação — Centro Universitário La Salle do Rio de Janeiro</p>
   <p class="affil">Disciplina: Linguagens de Programação – Análise e Visualização de Dados com Python (6º Período) · 2026.2</p>
   <p class="affil">Professor: Prof. Alexandre Neves Louzada</p>
   <a class="gh-btn" href="https://github.com/alexairu/projeto-g2">📦 Ver Repositório GitHub (Código e Dados)</a>
   <div class="badges">
-    <span class="badge">Python 3.12</span>
+    <span class="badge">Python 3.12+</span>
     <span class="badge">Código: MIT</span>
     <span class="badge">Dados/texto: CC BY 4.0</span>
     <span class="badge">FAIR</span>
@@ -82,9 +88,9 @@
   <ol>
     <li><a href="#intro">Introdução</a></li>
     <li><a href="#metodo">Metodologia e Pipeline de Dados</a></li>
-    <li><a href="#resultados">Resultados e Discussão Visual</a></li>
+    <li><a href="#resultados">Resultados e Discussão</a></li>
     <li><a href="#conclusao">Conclusão</a></li>
-    <li><a href="#fair">Disponibilidade e Princípios FAIR</a></li>
+    <li><a href="#fair">Disponibilidade dos Dados e Declaração FAIR</a></li>
     <li><a href="#refs">Referências</a></li>
   </ol>
 </nav>
@@ -131,14 +137,30 @@ if erros: raise ValueError("Validação falhou: " + "; ".join(erros))</code></pr
 </section>
 
 <section id="resultados">
-  <h2>3 Resultados e Discussão Visual</h2>
+  <h2>3 Resultados e Discussão</h2>
 
   <h3>3.1 RQ1 — Quais problemas são mais frequentes?</h3>
   <p>Violência ou vandalismo na área de residência (média de 45,3%) e pouco espaço (43,6%) foram os problemas mais relatados, seguidos de barulho (32,8%), umidade (31,1%) e goteira (30,0%). Casa escura foi o menos frequente (19,6%).</p>
   <figure>
-    <img src="assets/fig1_prevalencia.png" alt="Barras horizontais com a média de cada problema e pontos para cada capital" loading="lazy">
-    <figcaption><strong>Figura 1.</strong> Prevalência média de cada problema (barras) e valor de cada capital (pontos). Fonte: IBGE/POF 2002-2003; elaboração própria.</figcaption>
+    <img src="assets/fig1_prevalencia.png" alt="Gráfico de amplitude: para cada problema, linha do menor ao maior valor entre as capitais, pontos coloridos por região e marcador da média" loading="lazy">
+    <figcaption><strong>Figura 1.</strong> Amplitude de cada problema entre as 12 capitais: a faixa cinza vai do menor ao maior valor (capitais extremas indicadas nas pontas), cada ponto é uma capital colorida por região e o traço preto marca a média. Fonte: IBGE/POF 2002-2003; elaboração própria.</figcaption>
   </figure>
+  <div class="tablewrap">
+  <table>
+    <caption><strong>Tabela 1.</strong> Estatística descritiva do % de famílias que relataram cada problema (n = 12 capitais). DP = desvio-padrão amostral; CV = DP ÷ média. Fonte: IBGE/POF 2002-2003; elaboração própria.</caption>
+    <thead><tr><th>Problema</th><th class="n">Média</th><th class="n">DP</th><th class="n">CV</th><th class="n">Mín.</th><th class="n">Máx.</th><th class="n">Amplitude</th></tr></thead>
+    <tbody>
+      <tr><td>Violência/vandalismo</td><td class="n">45,28</td><td class="n">9,34</td><td class="n">0,21</td><td class="n">24,14</td><td class="n">61,08</td><td class="n">36,94</td></tr>
+      <tr><td>Pouco espaço</td><td class="n">43,60</td><td class="n">6,60</td><td class="n">0,15</td><td class="n">32,09</td><td class="n">51,63</td><td class="n">19,54</td></tr>
+      <tr><td>Barulho (rua/vizinhos)</td><td class="n">32,80</td><td class="n">7,71</td><td class="n">0,24</td><td class="n">20,66</td><td class="n">44,20</td><td class="n">23,54</td></tr>
+      <tr><td>Umidade (fundação/paredes/chão)</td><td class="n">31,05</td><td class="n">12,74</td><td class="n">0,41</td><td class="n">8,62</td><td class="n">50,70</td><td class="n">42,08</td></tr>
+      <tr><td>Telhado com goteira</td><td class="n">30,00</td><td class="n">15,06</td><td class="n">0,50</td><td class="n">3,62</td><td class="n">54,91</td><td class="n">51,29</td></tr>
+      <tr><td>Madeira deteriorada</td><td class="n">27,94</td><td class="n">13,79</td><td class="n">0,49</td><td class="n">9,30</td><td class="n">56,81</td><td class="n">47,51</td></tr>
+      <tr><td>Poluição/problemas ambientais</td><td class="n">24,94</td><td class="n">8,14</td><td class="n">0,33</td><td class="n">12,76</td><td class="n">38,11</td><td class="n">25,35</td></tr>
+      <tr><td>Casa escura</td><td class="n">19,58</td><td class="n">6,68</td><td class="n">0,34</td><td class="n">5,29</td><td class="n">29,31</td><td class="n">24,02</td></tr>
+    </tbody>
+  </table>
+  </div>
   <p>A dispersão difere muito entre os problemas. Pouco espaço (CV = 0,15) e violência (CV = 0,21) são relatados em níveis parecidos em quase todas as capitais, o que sugere problemas de natureza mais generalizada nas grandes cidades. Já goteira (CV = 0,50), madeira deteriorada (0,49) e umidade (0,41) variam muito: a goteira vai de 3,6% em Brasília a 54,9% em Belém, e a madeira deteriorada de 9,3% (Brasília) a 56,8% (Belém). Esses problemas dependem de qualidade construtiva, materiais e clima, fatores que mudam de uma cidade para outra.</p>
 
   <h3>3.2 RQ2 — Quais capitais concentram mais problemas?</h3>
@@ -189,7 +211,7 @@ if erros: raise ValueError("Validação falhou: " + "; ".join(erros))</code></pr
 </section>
 
 <section id="fair">
-  <h2>5 Disponibilidade e Princípios FAIR</h2>
+  <h2>5 Disponibilidade dos Dados e Declaração FAIR</h2>
   <p>Este projeto adere aos princípios FAIR (WILKINSON et al., 2016):</p>
   <ul>
     <li><strong>Findable:</strong> <code>README.md</code> com resumo, palavras-chave e link para a fonte original; autoria, disciplina, semestre e instituição identificados.</li>

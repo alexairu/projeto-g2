@@ -1,5 +1,10 @@
 """Métricas, estatísticas e figuras estáticas do artigo (RQ1-RQ3).
 
+Autor: Alexandre Souza de Abreu Junior
+Centro Universitário La Salle do Rio de Janeiro · Bacharelado em Sistemas de Informação
+Disciplina: Linguagens de Programação (6º período, 2026.2) · Prof. Alexandre Neves Louzada
+Licença: MIT
+
 Uso (a partir da raiz do repositório):  python -m src.analise
 Gera:  docs/assets/*.png  e  docs/assets/estatisticas.json
 """
@@ -74,23 +79,46 @@ def calcular_estatisticas(df: pd.DataFrame) -> dict:
 
 
 def fig_prevalencia(df: pd.DataFrame, destino: Path) -> None:
+    """Gráfico de amplitude: linha mín-máx, capitais por região e média em destaque."""
     w = matriz(df)
     ordem = w.mean().sort_values()
-    fig, ax = plt.subplots(figsize=(8, 4.6), dpi=200)
-    pos = np.arange(len(ordem))
-    ax.barh(pos, ordem.values, height=.5, color="#1f4e79", alpha=.85, zorder=1,
-            label="Média das 12 capitais")
+    fig, ax = plt.subplots(figsize=(8.6, 5.4), dpi=200)
     for i, prob in enumerate(ordem.index):
-        ax.scatter(w[prob], [i] * len(w), color="#9aa5b1", s=22, alpha=.9, zorder=2,
-                   label="Capital" if i == 0 else None)
-    ax.set_yticks(pos, [ROTULOS[p] for p in ordem.index])
+        col = w[prob]
+        ax.hlines(i, col.min(), col.max(), color="#c7ccd3", lw=6, zorder=1,
+                  capstyle="round")
+        for cap, v in col.items():
+            ax.scatter(v, i, s=34, color=CORES_REGIAO[REGIAO[cap]], edgecolor="white",
+                       linewidth=.6, zorder=3)
+        m = col.mean()
+        ax.scatter(m, i, marker="|", s=420, color="#111827", linewidth=2.4, zorder=4)
+        ax.annotate(f"média {m:.1f}%".replace(".", ","), (m, i), xytext=(0, 12),
+                    textcoords="offset points", ha="center", va="bottom", fontsize=7,
+                    color="#111827", fontweight="bold")
+        ax.annotate(f"{col.idxmin()} {col.min():.0f}", (col.min(), i), xytext=(-6, 0),
+                    textcoords="offset points", ha="right", va="center", fontsize=6.5,
+                    color="#6b7280")
+        ax.annotate(f"{col.idxmax()} {col.max():.0f}", (col.max(), i), xytext=(6, 0),
+                    textcoords="offset points", ha="left", va="center", fontsize=6.5,
+                    color="#6b7280")
+    ax.set_yticks(range(len(ordem)), [ROTULOS[p] for p in ordem.index])
+    ax.set_ylim(-.6, len(ordem) - .2)
+    ax.set_xlim(-10, 80)
+    ax.set_xticks(range(0, 71, 10))
     ax.set_xlabel("% de famílias que relataram o problema")
-    ax.set_title("Prevalência por problema: média (barra) e cada capital (ponto)",
+    ax.set_title("Prevalência por problema: amplitude entre capitais e média",
                  fontsize=10, loc="left")
-    ax.set_xlim(0, 70)
-    ax.legend(loc="lower right", frameon=False, fontsize=8)
+    handles = [plt.Line2D([], [], marker="o", ls="", color=c, markersize=6)
+               for c in CORES_REGIAO.values()]
+    handles.append(plt.Line2D([], [], marker="|", ls="", color="#111827", markersize=12,
+                              markeredgewidth=2.4))
+    ax.legend(handles, list(CORES_REGIAO) + ["Média das 12 capitais"], loc="upper center",
+              bbox_to_anchor=(.5, -.13), ncol=6, frameon=False, fontsize=7.5,
+              handletextpad=.3, columnspacing=1.2)
     ax.grid(axis="x", alpha=.3, zorder=0)
-    sns.despine()
+    sns.despine(left=True)
+    ax.spines["bottom"].set_bounds(0, 70)
+    ax.tick_params(axis="y", length=0)
     fig.tight_layout()
     fig.savefig(destino / "fig1_prevalencia.png")
     plt.close(fig)
